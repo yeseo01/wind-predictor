@@ -2,6 +2,9 @@
 
 A Multi-Layer Perceptron (MLP)-based regression model that predicts eastward wind speed using geographic coordinates (latitude and longitude) as input.
 
+> 🚀 **Note:** This MLP was implemented **from scratch using only NumPy**, without relying on any deep learning frameworks such as TensorFlow or PyTorch. The goal was to gain a deep understanding of forward and backward propagation mechanisms in neural networks.
+
+
 ## 📌 Project Overview
 This project was part of an assignment in Spring 2025, aimed at:
 - Implementing a basic MLP from scratch
