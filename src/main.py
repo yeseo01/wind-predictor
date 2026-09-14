@@ -1,3 +1,4 @@
+from pathlib import Path
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -16,18 +17,29 @@ np.random.seed(42)
 
 # ----------------- 데이터 처리 --------------------
 # 데이터 가져오기
-df = pd.read_csv("../20190120_Time_8_Altitude_22_Eastward_wind.csv")
+repo_root = Path(__file__).resolve().parent.parent
+data_path = repo_root / "20190120_Time_8_Altitude_22_Eastward_wind.csv"
+
+df = pd.read_csv(data_path)
 x = df[['Longitude (deg)', 'Latitude (deg)']].values
 y = df['Eastward wind (m/s)'].values.reshape(-1, 1)
 
-# 데이터 정규화
-scaler_x = Scaler()
-scaler_y = Scaler()
-x_scaled = scaler_x.fit(x).transform(x)
-y_scaled = scaler_y.fit(y).transform(y)
-
 # 학습/테스트 데이터 분할
-x_train, x_test, y_train, y_test = train_test_split(x_scaled, y_scaled, test_size=0.2, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(
+    x,
+    y,
+    test_size=0.2,
+    random_state=42,
+)
+
+# 학습 데이터로만 정규화 기준 계산
+scaler_x = Scaler().fit(x_train)
+scaler_y = Scaler().fit(y_train)
+
+x_train = scaler_x.transform(x_train)
+x_test = scaler_x.transform(x_test)
+y_train = scaler_y.transform(y_train)
+y_test = scaler_y.transform(y_test)
 
 # ------------------ 모델 생성 -------------------
 # 모델 초기화
