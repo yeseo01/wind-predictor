@@ -5,9 +5,10 @@ name = "pypi"
 
 [packages]
 matplotlib = "*"
-numpy = "*"
 scikit-learn = "*"
 pandas = "*"
+pytz = "*"
+numpy = "<2.5"
 
 [dev-packages]
 
