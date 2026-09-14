@@ -68,4 +68,3 @@ def plot_training_history(history: dict[str, list[float]]) -> None:
     plt.xlabel("Epoch")
     plt.ylabel("Loss")
     plt.tight_layout()
-    plt.show()

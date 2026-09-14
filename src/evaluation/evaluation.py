@@ -57,7 +57,6 @@ def plot_actual_vs_pred(
     plt.xlabel("Predicted")
     plt.ylabel("Actual")
     plt.legend()
-    plt.show()
 
 
 def plot_residual_vs_pred(
@@ -83,7 +82,6 @@ def plot_residual_vs_pred(
     plt.xlabel("Predicted")
     plt.ylabel("Residual")
     plt.title("Residual vs Predicted")
-    plt.show()
 
 
 def compute_mfe_mre(
