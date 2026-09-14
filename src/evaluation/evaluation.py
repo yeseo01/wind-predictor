@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from .loss_func import Loss_Func
+from .loss_func import LossFunction
 
-def Coefficient_of_Determination(predict, actual, scaler_y):
+def coefficient_of_determination(predict, actual, scaler_y):
     # 역정규화
     predict = scaler_y.inverse_transform(predict)
     actual = scaler_y.inverse_transform(actual)
@@ -53,7 +53,7 @@ def plot_residual_vs_pred(predict, actual, scaler_y):
     plt.title("Residual by Predicted Plot")
     plt.show()
 
-def Compute_MFE_MRE(predict_train, actual_train, predict_test, actual_test, scaler_y):
+def compute_mfe_mre(predict_train, actual_train, predict_test, actual_test, scaler_y):
     # 역정규화
     predict_train = scaler_y.inverse_transform(predict_train)
     actual_train = scaler_y.inverse_transform(actual_train)
@@ -61,10 +61,10 @@ def Compute_MFE_MRE(predict_train, actual_train, predict_test, actual_test, scal
     actual_test = scaler_y.inverse_transform(actual_test)
 
     # MFE (훈련 데이터에서 모델이 얼마나 잘 맞는지)
-    MFE = Loss_Func().MAE(predict_train, actual_train)
+    MFE = LossFunction().mae(predict_train, actual_train)
 
     # MRE (새로운 데이터에서도 모델이 잘 맞는지)
-    MRE = Loss_Func().MAE(predict_test, actual_test)
+    MRE = LossFunction().mae(predict_test, actual_test)
 
     print("MFE (Model Fit Error): ", MFE)
     print("MRE (Model Representation Error): ", MRE) 

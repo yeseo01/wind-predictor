@@ -1,3 +1,3 @@
-from .train import Train, plot_training_history
+from .train import train_model, plot_training_history
 
-__all__ = ['Train', 'plot_training_history'] 
+__all__ = ['train_model', 'plot_training_history']

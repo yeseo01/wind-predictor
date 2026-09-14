@@ -1,6 +1,6 @@
 from .layer import Layer
 
-class Multi_Layer_Perceptron():
+class MultiLayerPerceptron():
     def __init__(self, input_size, hidden_sizes, output_size):
         self.layers = [] # 설계한 MLP에 존재하는 layer class들을 저장할 리스트
 

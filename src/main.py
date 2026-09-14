@@ -3,13 +3,13 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from preprocessing.scaler import Scaler
-from models.mlp import Multi_Layer_Perceptron
-from training import Train, plot_training_history
+from models.mlp import MultiLayerPerceptron
+from training import train_model, plot_training_history
 from evaluation import (
-    Coefficient_of_Determination,
+    coefficient_of_determination,
     plot_actual_vs_pred,
     plot_residual_vs_pred,
-    Compute_MFE_MRE
+    compute_mfe_mre
 )
 
 # 랜덤 시드 설정
@@ -46,14 +46,14 @@ y_test = scaler_y.transform(y_test)
 input_size = 2
 hidden_sizes = [16, 16]
 output_size = 1
-model = Multi_Layer_Perceptron(input_size, hidden_sizes, output_size)
+model = MultiLayerPerceptron(input_size, hidden_sizes, output_size)
 
 # 학습 파라미터 설정
 params = { 'learning_rate': 0.01, 'epochs': 1000, 'batch_size': 16}
 
 # ------------------- 모델 학습 --------------------
 print("=== 학습 시작 ===")
-history = Train(model, x_train, y_train, **params)
+history = train_model(model, x_train, y_train, **params)
 
 # 학습 과정 시각화
 plot_training_history(history)
@@ -64,7 +64,7 @@ predict_train = model.forward(x_train)
 predict_test = model.forward(x_test)
 
 # STEP 1: 결정계수
-R2 = Coefficient_of_Determination(predict_test, y_test, scaler_y)
+R2 = coefficient_of_determination(predict_test, y_test, scaler_y)
 print("R2: ", R2)
 
 # STEP 2: Actual by predicted plot
@@ -74,4 +74,4 @@ plot_actual_vs_pred(predict_test, y_test, scaler_y)
 plot_residual_vs_pred(predict_test, y_test, scaler_y)
 
 # STEP 4: MFE, MRE계산
-Compute_MFE_MRE(predict_train, y_train, predict_test, y_test, scaler_y) 
+compute_mfe_mre(predict_train, y_train, predict_test, y_test, scaler_y)

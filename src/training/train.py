@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from evaluation.loss_func import Loss_Func
+from evaluation.loss_func import LossFunction
 
-def Train(model, x_train, y_train, learning_rate=0.001, epochs=1000, batch_size=16):
+def train_model(model, x_train, y_train, learning_rate=0.001, epochs=1000, batch_size=16):
     history = { 'loss': [] }
 
     for epoch in range(epochs):
@@ -18,13 +18,13 @@ def Train(model, x_train, y_train, learning_rate=0.001, epochs=1000, batch_size=
             predict = model.forward(batch_x)
 
             # 해당 배치의 평균 손실 계산 후 저장
-            loss = Loss_Func().MSE(predict, batch_y)
+            loss = LossFunction().mse(predict, batch_y)
 
             total_loss += loss
             batch_count += 1
 
             # Backward
-            grad = Loss_Func().gradient(predict, batch_y) # 손실함수의 기울기 계산
+            grad = LossFunction().gradient(predict, batch_y) # 손실함수의 기울기 계산
             model.backward(grad, learning_rate)
 
         # 전체 데이터의 평균 손실 계산

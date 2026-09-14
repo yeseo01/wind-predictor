@@ -1,15 +1,15 @@
 import numpy as np
 
-class Loss_Func():
+class LossFunction():
     def __init__(self):
         pass
 
     # 평균제곱오차
-    def MSE(self, predict, y):
+    def mse(self, predict, y):
         return np.mean((y - predict) ** 2) / 2
 
     # 평균절대오차
-    def MAE(self, predict, y):
+    def mae(self, predict, y):
         return np.mean(np.abs(y - predict))
 
     # 평균제곱오차 미분값
