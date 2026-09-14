@@ -23,7 +23,11 @@ np.random.seed(42)
 
 # Load dataset
 repo_root = Path(__file__).resolve().parent.parent
-data_path = repo_root / "20190120_Time_8_Altitude_22_Eastward_wind.csv"
+data_path = (
+    repo_root
+    / "data"
+    / "20190120_Time_8_Altitude_22_Eastward_wind.csv"
+)
 
 df = pd.read_csv(data_path)
 
