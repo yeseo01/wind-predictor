@@ -4,8 +4,8 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from preprocessing.scaler import Scaler
 from models.mlp import Multi_Layer_Perceptron
-from Train import Train, plot_training_history
-from Test import (
+from training import Train, plot_training_history
+from evaluation import (
     Coefficient_of_Determination,
     plot_actual_vs_pred,
     plot_residual_vs_pred,

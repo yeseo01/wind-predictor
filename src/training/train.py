@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from Test.loss_func import Loss_Func
+from evaluation.loss_func import Loss_Func
 
 def Train(model, x_train, y_train, learning_rate=0.001, epochs=1000, batch_size=16):
     history = { 'loss': [] }
