@@ -1,22 +1,31 @@
+"""Standardization utilities for model inputs and targets."""
+
+from __future__ import annotations
+
 import numpy as np
 
-class Scaler:
-    def __init__(self):
-        self.mean = None
-        self.std = None
 
-    def fit(self, X):
-        # 평균과 표준편차 계산
-        self.mean = np.mean(X, axis=0)
-        self.std = np.std(X, axis=0)
-        # 표준편차가 0인 경우 1로 설정 (transform에서 0으로 나누는 것을 방지)
+class Scaler:
+    """Standardize data using the mean and standard deviation."""
+
+    def __init__(self) -> None:
+        self.mean: np.ndarray | None = None
+        self.std: np.ndarray | None = None
+
+    def fit(self, x: np.ndarray) -> "Scaler":
+        """Compute the mean and standard deviation of the input data."""
+        self.mean = np.mean(x, axis=0)
+        self.std = np.std(x, axis=0)
+
+        # Avoid division by zero for constant features
         self.std[self.std == 0] = 1
+
         return self
 
-    def transform(self, X):
-        # 정규화 수행: (X - mean) / std
-        return (X - self.mean) / self.std
+    def transform(self, x: np.ndarray) -> np.ndarray:
+        """Standardize data using the fitted statistics."""
+        return (x - self.mean) / self.std
 
-    def inverse_transform(self, X):
-        # 역변환 수행: X * std + mean
-        return X * self.std + self.mean 
+    def inverse_transform(self, x: np.ndarray) -> np.ndarray:
+        """Transform standardized data back to its original scale."""
+        return x * self.std + self.mean
