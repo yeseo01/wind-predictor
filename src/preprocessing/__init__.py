@@ -1,3 +1,3 @@
 from .scaler import Scaler
 
-__all__ = ['Scaler'] 
+__all__ = ["Scaler"]

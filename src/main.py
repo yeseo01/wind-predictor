@@ -1,26 +1,26 @@
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 
-from preprocessing.scaler import Scaler
-from models.mlp import MultiLayerPerceptron
-from training import train_model, plot_training_history
 from evaluation import (
     coefficient_of_determination,
+    compute_mfe_mre,
     plot_actual_vs_pred,
     plot_residual_vs_pred,
-    compute_mfe_mre,
 )
+from models.mlp import MultiLayerPerceptron
+from preprocessing.scaler import Scaler
+from training import plot_training_history, train_model
 
 
 # Set random seed
 np.random.seed(42)
 
 
-# -------------------- Data Processing --------------------
+# Data processing
 
 # Load dataset
 repo_root = Path(__file__).resolve().parent.parent
@@ -56,7 +56,7 @@ y_train = scaler_y.transform(y_train)
 y_test = scaler_y.transform(y_test)
 
 
-# -------------------- Model Setup --------------------
+# Model setup
 
 # Initialize model
 input_size = 2
@@ -78,7 +78,7 @@ params = {
 }
 
 
-# -------------------- Model Training --------------------
+# Model training
 
 print("=== Training ===")
 
@@ -93,7 +93,7 @@ history = train_model(
 plot_training_history(history)
 
 
-# -------------------- Model Evaluation --------------------
+# Model evaluation
 
 print("\n=== Evaluation Results ===")
 
