@@ -4,9 +4,32 @@ A Multi-Layer Perceptron (MLP) regression model that predicts eastward wind spee
 
 The neural network is implemented from scratch with NumPy, including dense layers, forward propagation, ReLU activation, backpropagation, loss computation, and parameter updates. No deep-learning framework such as TensorFlow or PyTorch is used.
 
-This project was originally developed as part of a Spring 2025 aerospace AI coursework assignment and has since been cleaned up for reproducibility and readability.
+This project was originally developed as part of a Spring 2025 aerospace AI coursework assignment and has since been refined for reproducibility and readability.
 
-## Project Overview
+
+## Key Highlights
+
+- Implemented a Multi-Layer Perceptron from scratch with NumPy, including dense layers, ReLU activation, forward propagation, backpropagation, and parameter updates.
+- Trained a `2 → 16 → 16 → 1` regression network without TensorFlow, PyTorch, or another deep-learning framework.
+- Used mini-batch gradient descent with manually implemented loss and optimization logic.
+- Fitted normalization statistics on the training partition only and reused them for the test set to avoid preprocessing leakage.
+
+
+## Reproduced Results
+
+Using the current reproducible training pipeline:
+
+| Result | Value |
+| --- | ---: |
+| Dataset samples | 4,947 |
+| Test R² | 0.9755 |
+| MFE | 1.7327 m/s |
+| MRE | 1.8288 m/s |
+
+`MFE` and `MRE` retain the terminology used in the original coursework. In the current implementation, they are MAE-based training-set and test-set errors, respectively.
+
+
+## Project Context
 
 The model predicts eastward wind speed using two input features:
 
@@ -17,7 +40,30 @@ The main purpose of the project is to implement and understand the mechanics of 
 
 Supporting libraries are used for data loading, visualization, and train/test splitting, while the MLP itself is implemented directly with NumPy.
 
-## Model Architecture
+
+## Dataset
+
+The dataset is stored at:
+
+```text
+data/20190120_Time_8_Altitude_22_Eastward_wind.csv
+```
+
+### Input Features
+
+- `Longitude (deg)`
+- `Latitude (deg)`
+
+### Target
+
+- `Eastward wind (m/s)`
+
+The original coursework described the dataset as US weather data. The exact upstream source and licensing information are not currently documented in this repository.
+
+
+## Methodology
+
+### Model Architecture
 
 The network uses the following architecture:
 
@@ -55,26 +101,7 @@ The current architecture is:
 2 → 16 → 16 → 1
 ```
 
-## Dataset
-
-The dataset is stored at:
-
-```text
-data/20190120_Time_8_Altitude_22_Eastward_wind.csv
-```
-
-### Input Features
-
-- `Longitude (deg)`
-- `Latitude (deg)`
-
-### Target
-
-- `Eastward wind (m/s)`
-
-The original coursework described the dataset as US weather data. The exact upstream source and licensing information are not currently documented in this repository.
-
-## Data Preprocessing
+### Data Preprocessing
 
 The dataset is split into training and test sets using:
 
@@ -86,7 +113,7 @@ A custom standardization class is used to normalize the input features and targe
 
 To prevent data leakage, the scaler statistics are calculated using the training set only. The same fitted statistics are then used to transform both the training and test sets.
 
-## Training
+### Training
 
 The current training configuration is:
 
@@ -101,6 +128,7 @@ The current training configuration is:
 | Random seed | 42 |
 
 The network is trained using mini-batch gradient descent with manually implemented backpropagation.
+
 
 ## Results
 
@@ -126,6 +154,7 @@ The program also generates:
 - Training loss history
 - Actual vs. predicted plot
 - Residual vs. predicted plot
+
 
 ## Repository Structure
 
@@ -155,6 +184,7 @@ wind-predictor/
 └── README.md
 ```
 
+
 ## How to Run
 
 ### 1. Install Pipenv
@@ -180,6 +210,7 @@ pipenv run python src/main.py
 ```
 
 The script trains the MLP, prints the evaluation metrics, and displays the training and evaluation plots.
+
 
 ## Dependencies
 
